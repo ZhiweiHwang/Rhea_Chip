@@ -566,8 +566,8 @@ def exon_plot(depthfile, trans, messages, outdir=os.getcwd(), prefix="Test", unc
 def graph_exon(depthfile, regiondict, outdir=os.getcwd(), prefix="Test"):
 	import multiprocessing
 	pool = multiprocessing.Pool(processes=min(multiprocessing.cpu_count(), len(regiondict.keys())))
-	demo = "NM_000151.3"
-	exon_plot(depthfile, demo, regiondict[demo], outdir, prefix)
+	#demo = "NM_000151.3"
+	#exon_plot(depthfile, demo, regiondict[demo], outdir, prefix)
 	for transcript, trans_messages in regiondict.iteritems():
 		pool.apply_async(exon_plot, (depthfile, demo, trans_messages, outdir, prefix))
 	pool.close()
