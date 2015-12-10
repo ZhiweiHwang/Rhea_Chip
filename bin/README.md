@@ -8,9 +8,9 @@ Rhea_Chip inclusion of some auxiliary scripts, However, these scripts are availa
 
 ## Description
 
-├── bam_to_chip_gender.py : Use BAM file to determine gender
-├── depthQC.py : For QC, Exon plot base on bam file
-└── vcf_phasing.py : VCF phasing
+###. bam_to_chip_gender.py : Use BAM file to determine gender
+###. depthQC.py : For QC, Exon plot base on bam file
+###. vcf_phasing.py : VCF phasing
 
 ## Usage
 ```
