@@ -31,8 +31,8 @@ class Predict(object):
 
 	def __init__(self, bamfile, outfile):
 		self.bamfile = bamfile
-		stat = self.indexbamfile()
 		self.outfile = outfile
+		stat = self.indexbamfile()
 		assert self.bamfile and self.outfile and stat, "Input error"
 		self._bam = pysam.Samfile(bamfile)
 		self._prealloc_func = partial(np.zeros, dtype=np.int)
