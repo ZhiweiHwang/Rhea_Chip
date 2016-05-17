@@ -7,3 +7,4 @@ cytoBand	cytoBand.tar.gz	.	b51f	RheaChip	db
 NHLBI	NHLBI.tar.gz	.	2153	RheaChip	db
 transdb	transdb.tar.gz	.	0269	RheaChip	db
 RepeatMasker	rmsk.tar.gz	.	b5df	RheaChip	db
+SOAPnuke  SOAPnuke.tar.gz . c24f RheaChip  source
