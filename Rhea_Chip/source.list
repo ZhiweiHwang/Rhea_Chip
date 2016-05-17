@@ -1,0 +1,9 @@
+bwa	bwa-0.7.13.tar.gz	0.7.13	ebbb	RheaChip	source
+samtools	samtools-1.3.tar.gz	1.3	63d8	RheaChip	source
+GATK3	gatk3.tar.gz	.	1bd8	RheaChip	source
+picard	picard.tar.gz	.	0c62	RheaChip	source
+snpEff	snpEff.tar.gz	.	5bad	RheaChip	source
+cytoBand	cytoBand.tar.gz	.	b51f	RheaChip	db
+NHLBI	NHLBI.tar.gz	.	2153	RheaChip	db
+transdb	transdb.tar.gz	.	0269	RheaChip	db
+RepeatMasker	rmsk.tar.gz	.	b5df	RheaChip	db
