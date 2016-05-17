@@ -31,15 +31,9 @@ class Predict(object):
 
 	def __init__(self, bamfile, outdir):
 		self.bamfile = bamfile
-<<<<<<< HEAD:Rhea_Chip/tools/bam2gender.py
 		stat = self.indexbamfile()
 		self.outdir = outdir
 		assert self.bamfile and self.outdir and stat, "Input error"
-=======
-		self.outfile = outfile
-		stat = self.indexbamfile()
-		assert self.bamfile and self.outfile and stat, "Input error"
->>>>>>> b8df2506a14996c41c6e2e4f087088de4ed2b66c:bin/bam_to_chip_gender.py
 		self._bam = pysam.Samfile(bamfile)
 		self._prealloc_func = partial(np.zeros, dtype=np.int)
 		self.fake_bed_rows = [("chrX", 1, 59373566), ("chrY", 69362, 11375310)]
