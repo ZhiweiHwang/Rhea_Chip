@@ -87,8 +87,7 @@ Options:
     will select the default value.
 
     -o OUTDIR, --outdir=OUTDIR
-                        The output dir [ default:
-                        /share/Data02/huangzhiwei/source/Rhea_Chip ]
+                        The output dir [ default: `pwd` ]
     -p PROJECT_NAME, --project_name=PROJECT_NAME
                         set your project name
 
