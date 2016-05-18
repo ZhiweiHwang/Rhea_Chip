@@ -61,7 +61,7 @@ class Install(object):
 		self.root_dir = os.path.dirname(os.path.abspath(__file__))
 		req = open(kwargs["requirement"])
 		for line in req:
-			rows = line.strip().split("\t")
+			rows = line.strip().split()
 			if len(rows) < 6:
 				continue
 			s_fname, fname, version, key, passwd, ftype = rows[:6]
@@ -71,10 +71,10 @@ class Install(object):
 		req.close()
 
 	def install(self):
-		if self.nodata:
+		if not self.nodata:
 			for db in self.files['db']:
 				self.download(db, 'db')
-		if self.nosoft:
+		if not self.nosoft:
 			if 'bwa' in self.files['source']:
 				self.install_bwa(versions=self.files['source']['bwa'][-1])
 			if 'SOAPnuke' in self.files['source']:
