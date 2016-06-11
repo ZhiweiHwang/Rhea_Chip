@@ -271,9 +271,10 @@ class VCFReader(object):
 			offset_e += len(bases)
 		return begin + offset_s, (offset_e - offset_s) / len(bases), bases
 
-	def closet_anno(self, chrom, start, refer, alter):
+	def closet_anno(self, chrom, start, refer, alter, base_level=1):
 		offset = 0
 		tmp_ref = refer
+		start = int(start) - base_level
 		while len(refer) and len(alter) and refer[0] == alter[0]:
 			refer = refer[1:]
 			alter = alter[1:]
