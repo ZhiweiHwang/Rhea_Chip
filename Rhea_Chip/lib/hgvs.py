@@ -482,7 +482,7 @@ class HGVS(object):
 		if chgvs.startswith("m."):
 			if not genesymbol:
 				raise ValueError("Sorry, we can't phrase MTRNA unless providing the genename")
-		assert not transcript or not genesymbol, "Trans or Gene must be set one"
+		assert transcript or genesymbol, "Trans or Gene must be set one"
 
 		if transcript:
 			trans = transcript.split(".")
@@ -545,9 +545,9 @@ class HGVS(object):
 				end_offset_prefix = hgvs.cdna_end_offset_prefix if hgvs.cdna_end_offset_prefix else None
 				start_offset_prefix = hgvs.cdna_start_offset_prefix if hgvs.cdna_start_offset_prefix else None
 				p_s, region_s, block_s = self._prase_cdna_pos(refseq_select, strand, cdna_start,
-				                                              start_offset_prefix, start_offset) or -1
+				                                              start_offset_prefix, start_offset) or (-1, ".", ".")
 				p_e, region_e, block_e = self._prase_cdna_pos(refseq_select, strand, cdna_end,
-				                                              end_offset_prefix, end_offset) or -1
+				                                              end_offset_prefix, end_offset) or (-1, ".", ".")
 				hgvs.start, hgvs.end = (int(p_s) - 1, int(p_e)) if int(p_s) < int(p_e) else (int(p_e) - 1, int(p_s))
 				if hgvs.Strand == '+':
 					hgvs.regions = "{0}-{1}".format(region_s, region_e) if region_s != region_e else region_s
