@@ -479,11 +479,8 @@ class HGVS(object):
 		return anno_set
 
 	def parse_hgvs_name(self, chgvs, transcript=None, genesymbol=None):
-		if chgvs.startswith("m."):
-			if not genesymbol:
-				raise ValueError("Sorry, we can't phrase MTRNA unless providing the genename")
 		assert transcript or genesymbol, "Trans or Gene must be set one"
-
+		trans_set = set()
 		if transcript:
 			trans = transcript.split(".")
 			trans_select = self.dbref.execute("SELECT * FROM RefHeader where Trans = \"%s\"" % trans[0])
@@ -492,7 +489,7 @@ class HGVS(object):
 				new_set = filter(lambda s: s[2] != trans[1], trans_set)
 				if len(new_set):
 					trans_set = new_set
-		else:
+		if genesymbol and not len(trans_set):
 			trans_select = self.dbref.execute("SELECT * FROM RefHeader where geneSym = \"%s\"" % genesymbol)
 			trans_set = set(trans_select.fetchall())
 		regex = HGVSRegex()
