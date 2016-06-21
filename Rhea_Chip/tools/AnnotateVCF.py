@@ -103,8 +103,6 @@ class VCFReader(object):
 			chgvs = eff_dict['HGVS.c'] or "."
 			phgvs = eff_dict['HGVS.p'] or "."
 			trans = eff_dict['Feature_ID'].split(".")[0] or "."
-			if eff_dict['Feature_Type'] != 'transcript' and trans not in _TransMessages:
-				continue
 			if len(_TransMessages) and trans not in _TransMessages and trans.startswith("NM_"):
 				continue
 			trans_bio = eff_dict['Transcript_BioType'] or "."
@@ -157,7 +155,7 @@ class VCFReader(object):
 				chrom = messages.Chrom
 				pos = int(messages.Pos)
 				gt = re.compile("(\d)[|/](\d)").match(messages.GT)
-				if not gt:
+				if not gt or 'ANN' not in messages.Info:
 					continue
 				message_num += 1
 				if message_num % 250 == 0:
@@ -190,7 +188,7 @@ class VCFReader(object):
 					offset_s, offset_e, nor_refer, nor_alter, vartype, close_anno = \
 						self.closet_anno(chrom, pos, refer, alters)
 					start = pos + offset_s
-					stop = pos + + offset_e
+					stop = pos + offset_e
 					for info_rows in eff_info_dict[alters]:
 						if not len(info_rows):
 							info_rows = (".",) * 16
@@ -409,9 +407,9 @@ def main():
 				transset |= transdb_handle.fetch(Trans=names[0]) if len(names) == 1 else \
 					transdb_handle.fetch(Trans=names[0], TransVersion=names[1])
 	elif genesfile:
-		with smart_open(transfile) as f_in:
+		with smart_open(genesfile) as f_in:
 			for line in f_in:
-				names = line.strip().split()[0]
+				names = line.strip().split()
 				if len(names) < 1:
 					continue
 				transset |= transdb_handle.fetch(GeneSym=names[0])
