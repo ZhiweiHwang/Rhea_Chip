@@ -92,6 +92,7 @@ class VCFReader(object):
 		except Exception:
 			raise AttributeError("Sorry, we can't get anno message from %s" % self.vcf.filename)
 		eff_info_dict = defaultdict(set)
+		tmp_eff_info_dict = defaultdict(set)
 		for eff in snpeff_info.split(","):
 			rows = re.split("\s*\|\s*", eff)
 			eff_dict = defaultdict(str, zip(eff_info, rows))
@@ -103,8 +104,6 @@ class VCFReader(object):
 			chgvs = eff_dict['HGVS.c'] or "."
 			phgvs = eff_dict['HGVS.p'] or "."
 			trans = eff_dict['Feature_ID'].split(".")[0] or "."
-			if len(_TransMessages) and trans not in _TransMessages and trans.startswith("NM_"):
-				continue
 			trans_bio = eff_dict['Transcript_BioType'] or "."
 			impact = eff_dict['Annotation_Impact'] or "."
 			try:
@@ -126,6 +125,8 @@ class VCFReader(object):
 			anno_tag = eff_dict['ERRORS / WARNINGS / INFO'] or "."
 			if trans in _TransMessages:
 				gene_id, trans, protein_id, stand, primary = _TransMessages[trans]
+				tmp_eff_info_dict[alter].add((genesym, gene_id, trans, trans_bio, chgvs, protein_id, phgvs, stand, primary,
+					functions, impact, exon_num, cdna_pos, aa_pos, cds_pos, anno_tag))
 			else:
 				gene_id = eff_dict['Gene_ID'] or "."
 				protein_id = "."
@@ -133,6 +134,9 @@ class VCFReader(object):
 				primary = "Y"
 			eff_info_dict[alter].add((genesym, gene_id, trans, trans_bio, chgvs, protein_id, phgvs, stand, primary,
 			                          functions, impact, exon_num, cdna_pos, aa_pos, cds_pos, anno_tag))
+		for k, v in eff_info_dict.iteritems():
+			if k in tmp_eff_info_dict and len(tmp_eff_info_dict[k]):
+				eff_info_dict[k] = tmp_eff_info_dict[k]
 		return eff_info_dict
 
 	def parse(self, outdir=os.getcwd(), kickout_function=None, follow_function=None):
