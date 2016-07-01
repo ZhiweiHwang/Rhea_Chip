@@ -100,7 +100,9 @@ class VCFReader(object):
 			if alter == ".":
 				continue
 			functions = eff_dict['Annotation'] or "."
-			genesym = eff_dict['Gene_Name'] or "Intergenic"
+			genesym = eff_dict['Gene_Name'] or "."
+			if functions == 'intergenic_region':
+				genesym = '.'
 			chgvs = eff_dict['HGVS.c'] or "."
 			phgvs = eff_dict['HGVS.p'] or "."
 			trans = eff_dict['Feature_ID'].split(".")[0] or "."
@@ -137,6 +139,10 @@ class VCFReader(object):
 		for k, v in eff_info_dict.iteritems():
 			if k in tmp_eff_info_dict and len(tmp_eff_info_dict[k]):
 				eff_info_dict[k] = tmp_eff_info_dict[k]
+			else:
+				tmp_v = set([i for i in v if not v[2].startswith("NM_")])
+				if len(tmp_v):
+					eff_info_dict[k] = tmp_v
 		return eff_info_dict
 
 	def parse(self, outdir=os.getcwd(), kickout_function=None, follow_function=None):
