@@ -1,3 +1,4 @@
 dataset/dbsnp_138.hg19.vcf.gz.tbi
 dataset/dbsnp_138.hg19.vcf.gz
 ./SampleTest
+./.git
