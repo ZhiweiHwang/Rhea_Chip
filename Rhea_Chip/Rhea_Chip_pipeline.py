@@ -519,7 +519,7 @@ class Pipeline(object):
 		if parameters['transfile']:
 			cd += "-t %s " % parameters['transfile']
 		if parameters['genesfile']:
-			cd += "-g %s " % parameters['transfile']
+			cd += "-g %s " % parameters['genesfile']
 		if "usedb" in parameters and parameters["usedb"]:
 			cd += '--usedb \"%s\" ' % parameters['usedb']
 		if "kickout_function" in parameters and parameters["kickout_function"]:
