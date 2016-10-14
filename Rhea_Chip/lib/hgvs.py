@@ -662,7 +662,7 @@ class HGVS(object):
 					feback[tran].add(rec)
 		elif self.genes is not None:
 			for gene in self.genes:
-				sql += "  rv.geneSym=\"%s\"" % gene
+				sql += " AND rv.geneSym=\"%s\"" % gene
 				sencur = self.dbref.execute(sql).fetchall()
 				if sencur is None:
 					print "Sorry, geneSym %s has not been included !" % gene
